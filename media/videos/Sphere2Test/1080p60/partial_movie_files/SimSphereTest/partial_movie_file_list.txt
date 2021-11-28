@@ -1,0 +1,4 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/Jovany/Documents/Github/simulation_theory_formula_animation/media/videos/Sphere2Test/1080p60/partial_movie_files/SimSphereTest/348793371_2285157398_3826931251.mp4'
+file 'file:C:/Users/Jovany/Documents/Github/simulation_theory_formula_animation/media/videos/Sphere2Test/1080p60/partial_movie_files/SimSphereTest/239964722_2939884346_1086462017.mp4'
+file 'file:C:/Users/Jovany/Documents/Github/simulation_theory_formula_animation/media/videos/Sphere2Test/1080p60/partial_movie_files/SimSphereTest/4078865454_192920820_263443257.mp4'
