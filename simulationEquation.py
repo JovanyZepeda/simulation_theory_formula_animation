@@ -45,7 +45,7 @@ class simEqn(Scene):
         allPropPhrases =VGroup(propPhrase1,propPhrase2, propPhrase3).arrange(DOWN)
 
         # Dot! - The real civilization DOT
-        dot1 = Dot(color=RED, scale = 2)
+        dot1 = Dot3D(color=RED, scale = 2)
 
         # MANY DOTS! - The simulated Civilizations DOTS
         max_range = 1 # max -n and +n range for x y and z 

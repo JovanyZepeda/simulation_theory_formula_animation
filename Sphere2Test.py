@@ -5,15 +5,16 @@ import numpy as np
 from numpy import dot
 
 
-class SimSphereTest(ThreeDScene,MovingCameraScene):
+class SimSphereTest(ThreeDScene):
     def construct(self):
         
         # Dot! - The real civilization DOT
-        dot1 = Dot(color=RED).scale(2)
+        dot1 = Dot3D(ORIGIN, color=RED).scale(2)
 
         # MANY DOTS! - The simulated Civilizations DOTS
         max_range = 1 # max -n and +n range for x y and z 
-        xyz_coord = dict() # dict for (var_index: [x,y,z] )
+        # xyz_coord = dict() # dict for (var_index: [x,y,z] )
+        xyz_coord = VDict() # dict for (var_index: [x,y,z] )
 
         var_index = 0 # index variable for the nested for loop
 
@@ -23,21 +24,21 @@ class SimSphereTest(ThreeDScene,MovingCameraScene):
                     xyz_coord[f"{var_index}"] = Dot3D(np.array([x,y,z]), radius= 0.1, resolution= (8,8), color= BLUE)
                     var_index = var_index+1
         
-        #3D axis
-        axes = ThreeDAxes()
 ######################################---------------------------------------############################################################
        
         # camera orientation
-        self.camera.frame.save_state()
-        self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES)
-        self.add(axes)
-        self.camera.frame.animate.scale(0.5)
+        self.set_camera_orientation(phi=75 * DEGREES, theta=30 * DEGREES, zoom= 2.5)
         self.begin_ambient_camera_rotation(rate=0.1)
 
+        # add real dot
+        self.add(dot1)
         self.wait(2)
 
-       
         # Add simDots
-        for SimSphere in xyz_coord.values():
-            self.add(SimSphere)
-            self.wait(0.2)
+        SphereGroup = VGroup()
+
+        for SimSphere in xyz_coord.get_all_submobjects():
+            SphereGroup.add(*[SimSphere])
+
+        self.play(ReplacementTransform(dot1,SphereGroup))
+        self.wait(3)
