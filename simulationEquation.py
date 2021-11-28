@@ -7,6 +7,9 @@ from numpy import dot
 
 class simEqn(ThreeDScene):
     def construct(self):
+
+######################################-----------------INITIALIZATION BEGINS!----------------------############################################################
+        # MATH EQNS WITH LATEX
         eqntext = MathTex(
             "f_{sim}", # f sim
             "=", # equal sign
@@ -32,6 +35,7 @@ class simEqn(ThreeDScene):
         prop2 = props[1].set_color(BLUE).align_on_border(LEFT)
         prop3 = props[2].set_color(BLUE).align_on_border(LEFT)
 
+        # Text to explain the propositions
         proptext1 = Tex('Human-like civilizations rarely reach a posthuman stage', font_size = 35) # explanation to prop 1
         proptext2 = Tex('There will be no individuals or civilizations that have an interest in creating simulations', font_size = 35) # explanation to prop 2
         proptext3 = Tex('There are a large number of human-like civilizations that are living in a simulation', font_size = 35) # explanation to prop 3
@@ -46,7 +50,6 @@ class simEqn(ThreeDScene):
 
         # Dot! - The real civilization DOT
         dot1 = Dot3D(ORIGIN, color=RED).scale(2)
-        dot2 = Dot3D(ORIGIN, color=RED).scale(2)
 
         # MANY DOTS! - The simulated Civilizations DOTS
         max_range = 2 # max -n and +n range for x y and z 
@@ -54,6 +57,7 @@ class simEqn(ThreeDScene):
 
         var_index = 0 # index variable for the nested for loop
 
+        # Create the coords
         for x in range(-max_range, max_range+1):
             for y in range(-max_range, max_range+1):
                 for z in range(-max_range, max_range+1):
@@ -91,18 +95,18 @@ class simEqn(ThreeDScene):
 
         # Remove everything and replace it with a dot
         self.play(ReplacementTransform(allPropPhrases,dot1), ReplacementTransform(simpEqn,dot1))
-        self.wait(3)
+        self.wait(1)
 
         # camera orientation to 3D
         self.move_camera(phi=75 * DEGREES, theta=30 * DEGREES, zoom= 2.5)
         self.begin_3dillusion_camera_rotation(rate=0.2)
 
         # see the REAL Dot!
-        self.wait(5)
+        self.wait(2)
 
         # BRING ALL THE FAKE DOTS!
         self.play(Transform(dot1,DotGroup))
-        self.wait(5)
+        self.wait(8)
 
         #Remove everything
         self.play(FadeOut(dot1))
