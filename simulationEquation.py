@@ -1,5 +1,9 @@
 from typing import Collection
 from manim import *
+from manim.utils import scale
+import numpy as np
+from numpy import dot
+
 
 class simEqn(Scene):
     def construct(self):
@@ -40,31 +44,50 @@ class simEqn(Scene):
         # vertical groups
         allPropPhrases =VGroup(propPhrase1,propPhrase2, propPhrase3).arrange(DOWN)
 
+        # Dot! - The real civilization DOT
+        dot1 = Dot(color=RED, scale = 2)
+
+        # MANY DOTS! - The simulated Civilizations DOTS
+        max_range = 1 # max -n and +n range for x y and z 
+        SimDots = dict() # dict for (var_index: [x,y,z] )
+
+        var_index = 0 # index variable for the nested for loop
+
+        for x in range(-max_range, max_range+1):
+            for y in range(-max_range, max_range+1):
+                for z in range(-max_range, max_range+1):
+                    SimDots[var_index] = Dot(np.array([x,y,z]))
+                    var_index = var_index+1
+
+
+######################################---------------------------------------############################################################
         # Animate the main equations
         self.play(Write(eqntext[0]),Write(eqntext[1]),Write(eqntext[2])) # frist half of eqn
-        self.wait()
+        self.wait(5)
 
         self.play(Write(eqntext[3]), Write(eqntext[4])) # second half of eqn
-        self.wait(1)
+        self.wait(5)
 
         # self.play(FadeOut(eqntext)) # remove unsimplified eqn
 
         # self.play(Write(simpEqn)) # insert simplified eqn
 
         self.play(ReplacementTransform(eqntext,simpEqn))
-        self.wait()
+        self.wait(5)
 
         self.play(simpEqn.animate.shift(2*UP)) # move simp eqn up for more room
 
         # Animate the explanations and propositions
         self.play(Write(allPropPhrases[0]))
-        self.wait(4)
+        self.wait(5)
 
         self.play(Write(allPropPhrases[1].shift(DOWN)))
-        self.wait(4)
+        self.wait(5)
 
         self.play(Write(allPropPhrases[2].shift(2*DOWN)))
-        self.wait(4)
+        self.wait(5)
 
-        #remove everything
-        self.play(FadeOut(simpEqn), FadeOut(allPropPhrases))
+
+        self.play(ReplacementTransform(allPropPhrases,dot1), ReplacementTransform(simpEqn,dot1))
+
+        # Add dots
